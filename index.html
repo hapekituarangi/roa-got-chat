@@ -3,9 +3,7 @@
   <head>
     <title>Roa Got Chat</title>
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-    var socket = io();
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font: 13px Helvetica, Arial; }
@@ -23,5 +21,18 @@
     <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
+    <script>
+      var socket = io();
+      $('form').submit(function(e) {
+        e.preventDefault()
+        console.log('hello')
+        socket.emit('chat message', $('#m').val())
+        $('#m').val('')
+        return false
+      })
+      socket.on('chat message', function(msg) {
+        $('#messages').append($('<li>').text(msg))
+      })
+    </script>
   </body>
 </html>
