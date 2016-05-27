@@ -14,21 +14,25 @@ $('#enterName').submit(function(e) {
   e.preventDefault()
   if (/[a-z, A-Z, 0-9]/g.test($('#username').val())) {
     //socket = io()
-    var user = $('#username').val()
-    socket.emit('username', user)
-    $('#enterName').hide()
-    $('#chats').show()
-    $('#messages').show()
+    initiateChat()
   }
 })
-$('#chats').submit(function(e) {
-  e.preventDefault()
-  socket.emit('chat message', $('#m').val())
-  $('#messages').append($('<li class="you">').text('You: '+$('#m').val()))
-  // socket.broadcast.emit('chat message', $('#m').val())
-  $('#m').val('')
-  return false
-})
-socket.on('chat message', function(msg) {
-  $('#messages').append($('<li class="them">').text(msg))
-})
+function initiateChat() {
+  var user = $('#username').val()
+  socket.emit('username', user)
+  $('#enterName').hide()
+  $('#chats').show()
+  $('#messages').show()
+  $('#chats').submit(function(e) {
+    e.preventDefault()
+    socket.emit('chat message', $('#m').val())
+    $('#messages').append($('<li class="you">').text('You: '+$('#m').val()))
+    // socket.broadcast.emit('chat message', $('#m').val())
+    $('#m').val('')
+    return false
+  })
+
+  socket.on('chat message', function(msg) {
+    $('#messages').append($('<li class="them">').text(msg))
+  })
+}
