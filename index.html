@@ -7,9 +7,11 @@
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #chats { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      #enterName {background: #000; padding: 3px; position: relative; width: 100px;}
+      #enterName button {width: 100%;}
+      #chats input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      #chats button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
@@ -17,13 +19,22 @@
   </head>
   <body>
     <h1>Roa Got Chat</h1>
+    <form id='enterName'>
+      <input id='username' type='text' placeholder='Enter your name'/><button>Enter chat</button>
+    </form>
     <ul id="messages"></ul>
-    <form action="">
+    <form id='chats' action="">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
     <script>
       var socket = io();
-      $('form').submit(function(e) {
+      $('#enterName').submit(function(e) {
+        e.preventDefault()
+        var user = $('#username').val()
+        socket.emit('username', user)
+        $('#enterName').hide()
+      })
+      $('#chats').submit(function(e) {
         e.preventDefault()
         console.log('hello')
         socket.emit('chat message', $('#m').val())

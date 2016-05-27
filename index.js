@@ -8,16 +8,23 @@ app.get('/', function(req, res) {
 
 var connections = 0
 io.on('connection', function(socket) {
+  var username = ''
   connections++
-  socket.broadcast.emit('chat message', 'Someone else joined. There are now ' + connections.toString() + ' people in the room')
+
+  socket.on('username', function(user) {
+    username = user
+    socket.broadcast.emit('chat message', username + ' just joined the chat. There are now ' + connections.toString() + ' people in the room')
+  })
+
   socket.on('chat message', function(msg) {
     console.log('message: ', msg)
-    io.emit('chat message', msg)
+    io.emit('chat message', username + ': ' + msg)
   })
+
   console.log('a user connected')
-  socket.on('disconnect', function() {
+  socket.on('disconnect', function(username) {
     connections--
-    socket.broadcast.emit('chat message', 'Someone else left. There are now ' + connections.toString() + ' people in the room')
+    socket.broadcast.emit('chat message', username + ' just left the chat. There are now ' + connections.toString() + ' people in the room')
     console.log('a user disconnected')
   })
 })
