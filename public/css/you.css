@@ -1,0 +1,48 @@
+
+.headUili{
+  height: 800px;
+}
+
+li.you:last-child {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Orbitron", sans-serif;
+}
+
+.you {
+-webkit-animation-name: animateName; /* Chrome, Safari, Opera */
+-webkit-animation-duration: 10s; /* Chrome, Safari, Opera */
+-webkit-animation-iteration-count: infinite /* Chrome, Safari, Opera */
+animation-name: animateName;
+animation-duration: 10s;
+animation-iteration-count: infinite;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes animateName {
+    from {color: red;
+        font-size: 14pt;
+        opacity: 0.0;}
+    to {color: yellow;
+        font-size: 44pt;
+        opacity: 1.0;}
+}
+
+/* Standard syntax */
+@keyframes animateName {
+    from {color: red;
+        font-size: 14pt;
+        opacity: 0.0;}
+    to {color: yellow;
+        font-size: 44pt;
+        opacity: 1.0;}
+
+
+}
+
+
+
+
+
