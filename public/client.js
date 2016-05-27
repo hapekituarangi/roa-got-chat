@@ -33,6 +33,17 @@ function initiateChat() {
   })
 
   socket.on('chat message', function(msg) {
-    $('#messages').append($('<li class="them">').text(msg))
+    var li = $('<li class="them"/>')
+    var num = 0
+    msg.split("")
+      .forEach((letter) => {
+        var p = $("<p/>", {
+          "text": letter,
+          "class": "l-letters l-letters-" + num++ % 6
+        })
+        $(li).append(p)
+      })
+      $('#messages').append(li)
+
   })
 }
