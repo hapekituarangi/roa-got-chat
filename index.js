@@ -21,11 +21,11 @@ io.on('connection', function(socket) {
 
   socket.on('chat message', function(msg) {
     console.log('message: ', msg)
-    io.emit('chat message', username + ': ' + msg)
+    socket.broadcast.emit('chat message', username + ': ' + msg)
   })
 
   console.log('a user connected')
-  socket.on('disconnect', function(username) {
+  socket.on('disconnect', function() {
     connections--
     socket.broadcast.emit('chat message', username + ' just left the chat. There are now ' + connections.toString() + ' people in the room')
     console.log('a user disconnected')
